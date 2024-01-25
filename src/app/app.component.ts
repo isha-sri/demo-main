@@ -19,7 +19,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-root',
-
+  //standalone:true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
