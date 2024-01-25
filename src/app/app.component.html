@@ -1,0 +1,64 @@
+
+
+<main style="margin-left:50px;" class="main">
+  <h2>Choose Dataset</h2>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select an option</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="onDatasetChange()">
+      <mat-option>None</mat-option>
+      <mat-option value="OS">OS</mat-option>
+      <mat-option value="GDP">GDP</mat-option>
+      <mat-option value="Movies">Movies</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <p>You selected: {{selected}}</p>
+  <!-- <div style="margin-bottom:20px;">
+    
+    <button (click)="importExcelFromUrl()" mat-raised-button color="primary">Preview</button>
+  </div> -->
+  <div *ngIf="filterColumns.length">
+    <h3>Filter Panel</h3>
+    <div style="margin-bottom: 5px; width:200px" *ngFor="let column of filterColumns">
+      <label >{{ column }}</label>
+      <!-- <mat-form-field>
+        <mat-select [(ngModel)]="selectedFilters[column]" multiple>
+  
+          <mat-option *ngFor="let option of filterOptions[column]" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <div style="margin-bottom: 15px;">     <ng-multiselect-dropdown 
+        [data]="filterOptions[column]"
+        [settings]="dropdownSettings"
+        [(ngModel)]="selectedFilters[column]"
+        
+        >
+        <!-- (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)" -->
+      </ng-multiselect-dropdown></div>
+ 
+
+    </div>
+    
+    <button mat-raised-button color="primary" (click)="previewData()">Preview</button>
+  </div>
+  
+
+  <ag-grid-angular
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+
+  class="ag-theme-quartz"
+  style="height: 500px;"
+  (gridReady)="onGridReady($event)"
+  [suppressExcelExport]="true"
+  >
+</ag-grid-angular>
+
+      <button style="margin-top:20px;" (click)="downloadFilteredData()" mat-raised-button>Download</button>
+
+  
+
+</main>
+
